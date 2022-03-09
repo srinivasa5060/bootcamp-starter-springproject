@@ -7,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class BooksController {
@@ -25,7 +23,9 @@ public class BooksController {
     @GetMapping("/api/books")
     public ResponseEntity<Map> getAllBooks() {
         Map<String, List<Book>> books = new HashMap();
-        books.put("books", repository.findAll());
+        List<Book> allBooks = repository.findAll();
+        allBooks.sort(Comparator.comparing(Book::getTitle));
+        books.put("books", allBooks);
         return ResponseEntity.ok(books);
     }
 
