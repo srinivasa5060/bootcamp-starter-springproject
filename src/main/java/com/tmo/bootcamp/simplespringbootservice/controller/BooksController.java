@@ -12,19 +12,17 @@ import java.util.List;
 public class BooksController {
 
     @Autowired
-     private BookRepository repository;
+    private BookRepository repository;
 
     @PostMapping("/api/books")
     public ResponseEntity<Book> addBooks(@RequestBody Book book) {
         book =repository.save(book);
-        return new ResponseEntity<>(book, HttpStatus.CREATED);
-    }
+        return new ResponseEntity<>(book, HttpStatus.CREATED);}
 
     @GetMapping("/api/books")
     public List<Book> getAllBooks() {
         return repository.findAll();
     }
-
 
     @DeleteMapping("/api/books")
     public ResponseEntity<String> removeBooks() {
